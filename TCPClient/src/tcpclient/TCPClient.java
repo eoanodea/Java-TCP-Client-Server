@@ -23,13 +23,15 @@ public class TCPClient {
         String modifiedSentence;
         
         Scanner inFromUser = new Scanner(System.in);
-        Socket clientSocket = new Socket("localhost", 6788);
         
-        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         int test = 0;
         
         while(true) {
+            Socket clientSocket = new Socket("localhost", 6788);
+        
+            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            
             System.out.println("Please enter a message to send to the server");
         
             sentence = inFromUser.nextLine();
@@ -40,6 +42,7 @@ public class TCPClient {
             System.out.println("FROM SERVER: " + modifiedSentence);
             test++;
             
+            clientSocket.close();
         }
     }
     
